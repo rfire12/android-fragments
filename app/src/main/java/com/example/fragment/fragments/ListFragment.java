@@ -1,14 +1,26 @@
 package com.example.fragment.fragments;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.fragment.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +37,10 @@ public class ListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Map<String, String> concepts = new HashMap<String, String>();
+    private ListView conceptsList;
+    private TextView conceptTxt;
 
     public ListFragment() {
         // Required empty public constructor
@@ -51,10 +67,43 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        concepts.put("Android", "Android is a mobile operating system based on a modified version of the Linux kernel and other open " +
+                "source software, designed primarily for touchscreen mobile devices such as smartphones and tablets.");
+
+        concepts.put("Activity", "n Activity is an application component that provides a screen with which users can interact in order to do something");
+
+        concepts.put("ListView", "ListView is a view which groups several items and display them in vertical scrollable list.");
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        conceptsList = getView().findViewById(R.id.conceptsList);
+
+        conceptsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String term = (String) parent.getItemAtPosition(position);
+                String concept = concepts.get(term.toLowerCase());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("concept", concept);
+
+                ConceptFragment conceptFragment = new ConceptFragment();
+                conceptFragment.setArguments(bundle);
+
+                getFragmentManager().beginTransaction().add(R.id.landscapeLayout, conceptFragment).commit();
+            }
+        });
+
     }
 
     @Override
@@ -64,3 +113,22 @@ public class ListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 }
+
+/* String term = (String) parent.getItemAtPosition(position);
+                String concept = concepts.get(term.toLowerCase());
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("concept", concept);
+
+                ConceptFragment conceptFragment = new ConceptFragment();
+                conceptFragment.setArguments(bundle);
+
+                getFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+
+                int orientation = getResources().getConfiguration().orientation;
+
+                if( orientation == Configuration.ORIENTATION_LANDSCAPE )
+                    fragmentTransaction.replace(R.id., conceptFragment );*/

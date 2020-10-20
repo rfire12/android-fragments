@@ -2,4 +2,10 @@
     <string name="app_name">Fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="concepts">
+        <item>Android</item>
+        <item>Activity</item>
+        <item>Layout</item>
+    </string-array>
 </resources>
