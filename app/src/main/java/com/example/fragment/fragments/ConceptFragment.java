@@ -67,14 +67,16 @@ public class ConceptFragment extends Fragment {
                              Bundle savedInstanceState) {
 
             View view = inflater.inflate(R.layout.fragment_concept, container, false);
-            conceptTxt = view.findViewById(R.id.conceptTxt);
-            if (getArguments() != null) {
 
-                String concept = getArguments().getString("concept");
-                System.out.println(concept);
-                conceptTxt.setText(concept);
+            try {
+                if (getArguments() != null) {
+                    conceptTxt = view.findViewById(R.id.conceptTxt);
+                    String concept = getArguments().getString("concept");
+                    conceptTxt.setText(concept);
+                }
+            } catch (Exception e) {
+                return view;
             }
-
             return view;
     }
 }

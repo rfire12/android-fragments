@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager
                     .beginTransaction()
                     .hide(fragmentManager.findFragmentById(R.id.verticalConceptFragment))
+                    .show(fragmentManager.findFragmentById(R.id.landscapeConceptFragment))
                     .commit();
         }
 

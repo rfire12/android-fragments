@@ -129,22 +129,3 @@ public class ListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_list, container, false);
     }
 }
-
-/* String term = (String) parent.getItemAtPosition(position);
-                String concept = concepts.get(term.toLowerCase());
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("concept", concept);
-
-                ConceptFragment conceptFragment = new ConceptFragment();
-                conceptFragment.setArguments(bundle);
-
-                getFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
-
-                int orientation = getResources().getConfiguration().orientation;
-
-                if( orientation == Configuration.ORIENTATION_LANDSCAPE )
-                    fragmentTransaction.replace(R.id., conceptFragment );*/

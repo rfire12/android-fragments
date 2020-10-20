@@ -22,6 +22,8 @@
         android:name="com.example.fragment.fragments.ConceptFragment"
         android:layout_width="491dp"
         android:layout_height="278dp"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="733dp" />
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
