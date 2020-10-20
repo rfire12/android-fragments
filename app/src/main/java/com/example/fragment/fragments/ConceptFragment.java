@@ -61,20 +61,20 @@ public class ConceptFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        conceptTxt = (TextView) getView().findViewById(R.id.conceptTxt);
-        if (getArguments() != null) {
-            String concept = getArguments().getString("concept");
-            conceptTxt.setText(concept);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_concept, container, false);
+
+            View view = inflater.inflate(R.layout.fragment_concept, container, false);
+            conceptTxt = view.findViewById(R.id.conceptTxt);
+            if (getArguments() != null) {
+
+                String concept = getArguments().getString("concept");
+                System.out.println(concept);
+                conceptTxt.setText(concept);
+            }
+
+            return view;
     }
 }

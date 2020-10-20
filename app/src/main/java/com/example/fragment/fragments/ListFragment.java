@@ -71,9 +71,9 @@ public class ListFragment extends Fragment {
         concepts.put("Android", "Android is a mobile operating system based on a modified version of the Linux kernel and other open " +
                 "source software, designed primarily for touchscreen mobile devices such as smartphones and tablets.");
 
-        concepts.put("Activity", "n Activity is an application component that provides a screen with which users can interact in order to do something");
+        concepts.put("Activity", "An Activity is an application component that provides a screen with which users can interact in order to do something");
 
-        concepts.put("ListView", "ListView is a view which groups several items and display them in vertical scrollable list.");
+        concepts.put("Layout", "A layout defines the structure for a user interface in your app, such as in an activity.");
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -92,7 +92,7 @@ public class ListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String term = (String) parent.getItemAtPosition(position);
-                String concept = concepts.get(term.toLowerCase());
+                String concept = concepts.get(term);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("concept", concept);
@@ -100,7 +100,23 @@ public class ListFragment extends Fragment {
                 ConceptFragment conceptFragment = new ConceptFragment();
                 conceptFragment.setArguments(bundle);
 
-                getFragmentManager().beginTransaction().add(R.id.landscapeLayout, conceptFragment).commit();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                int orientation = getResources().getConfiguration().orientation;
+
+                if( orientation == Configuration.ORIENTATION_LANDSCAPE ) {
+                    fragmentTransaction.replace(R.id.landscapeConceptFragment, conceptFragment )
+                            .addToBackStack(null)
+                            .commit();
+                }
+                else {
+                    fragmentTransaction.replace(R.id.verticalConceptFragment, conceptFragment )
+                            .hide(fragmentManager.findFragmentById(R.id.verticalListFragment))
+                            .show(fragmentManager.findFragmentById(R.id.verticalConceptFragment))
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
         });
 
